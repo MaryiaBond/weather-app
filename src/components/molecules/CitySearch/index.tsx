@@ -4,12 +4,7 @@ import styles from "./styles.module.scss";
 
 interface IProps {
   currentCity: string;
-  changeCity(
-    event:
-      | React.MouseEvent<HTMLElement>
-      | React.KeyboardEvent<HTMLInputElement>,
-    city: string
-  ): void;
+  changeCity(event: React.KeyboardEvent<HTMLInputElement>, city: string): void;
 }
 
 const CitySearch: React.FC<IProps> = (props: IProps) => {

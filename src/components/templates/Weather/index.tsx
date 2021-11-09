@@ -3,6 +3,7 @@ import { useState } from "react";
 import styles from "./styles.module.scss";
 import Header from "../../organisms/Header";
 import CurrentWeather from "../../organisms/CurrentWeather";
+import Weather3Days from "../../organisms/Weather3Days";
 //import { Context } from "../../../context";
 
 //interface IChangeCity {
@@ -26,6 +27,7 @@ function Weather() {
     <main className={styles.weather}>
       <Header currentCity={currentCity} changeCity={changeCity} />
       <CurrentWeather currentCity={currentCity} />
+      <Weather3Days currentCity={currentCity} />
     </main>
   );
 } //  , useContext  <Context.Provider value={{ currentCity }}>  </Context.Provider>

@@ -18,7 +18,10 @@ const Header: React.FC<IChangeCity> = (props: IChangeCity) => {
   return (
     <section className={styles.header}>
       <Title />
-      <PresetСities changeCity={props.changeCity} />
+      <PresetСities
+        currentCity={props.currentCity}
+        changeCity={props.changeCity}
+      />
       <CitySearch
         changeCity={props.changeCity}
         currentCity={props.currentCity}

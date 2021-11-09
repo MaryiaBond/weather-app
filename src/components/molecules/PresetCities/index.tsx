@@ -1,6 +1,6 @@
 import * as React from "react";
 import styles from "./styles.module.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import City from "../../atoms/City";
 
 interface ICity {
@@ -11,6 +11,7 @@ interface ICity {
 
 interface IChangeCity {
   changeCity(event: React.MouseEvent<HTMLElement>, city: string): void;
+  currentCity: string;
 }
 
 const PresetСities: React.FC<IChangeCity> = (props: IChangeCity) => {
@@ -25,11 +26,33 @@ const PresetСities: React.FC<IChangeCity> = (props: IChangeCity) => {
     // eslint-disable-next-line array-callback-return
     arr.map((element) => {
       if (element.id === id) {
-        element.isChecked = !element.isChecked;
+        element.isChecked = true;
+      } else {
+        element.isChecked = false;
       }
     });
     setCities(arr);
   };
+
+  const unMarkAllCities = () => {
+    if (
+      props.currentCity !== "Minsk" &&
+      props.currentCity !== "Moskva" &&
+      props.currentCity !== "Bratislava"
+    ) {
+      const arr: ICity[] = [...cities];
+      // eslint-disable-next-line array-callback-return
+      arr.map((element) => {
+        element.isChecked = false;
+      });
+      setCities(arr);
+    }
+  };
+
+  useEffect(() => {
+    unMarkAllCities();
+    // eslint-disable-next-line
+  }, [props.currentCity]);
 
   return (
     <div className={styles.preset}>

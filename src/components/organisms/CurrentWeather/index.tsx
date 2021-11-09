@@ -25,15 +25,18 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
   const [currentWeather, setCurrentWeather] = useState<
     MainDataType | { temp: number; humidity: number }
   >({ temp: 0, humidity: 0 });
-  const [currentTime, setcurrentTime] = useState("");
+  const [currentTime, setCurrentTime] = useState("");
+  const [notFound, setNotFound] = useState("");
 
   const getCurrentWeather = () => {
+    setNotFound("");
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?q=${props.currentCity}&type=like&units=metric&appid=2767f783403ac9fedd6aa003a5194148`
     )
       .then((res) => res.json())
       .then((data: IDataType) => {
-        setCurrentWeather(data.main);
+        if (data.main) setCurrentWeather(data.main);
+        else setNotFound("City not found!");
       });
   };
 
@@ -43,10 +46,13 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
     const month = new Date().toLocaleString("en", { month: "long" });
     const date = now.getDate();
     const day = days[now.getDay()];
-    const hour = now.getHours();
+    const hour = new Date().toLocaleString("en", {
+      hour12: false,
+      hour: "2-digit",
+    });
     const minute = new Date().toLocaleString("en", { minute: "2-digit" });
     const time = `${month}, ${date}th, ${day}, ${hour}.${minute}`;
-    setcurrentTime(time);
+    setCurrentTime(time);
   };
 
   useEffect(() => {
@@ -55,12 +61,13 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
     // eslint-disable-next-line
   }, [props.currentCity]);
 
-  console.log(currentWeather);
+  //console.log(currentWeather);
 
   //console.log(props.currentCity);
 
   return (
     <div className={styles.current}>
+      <div className={styles.notFound}>{notFound}</div>
       <span className={styles.currentTime}></span>
       <button>GET</button>
       <div>{currentTime}</div>
