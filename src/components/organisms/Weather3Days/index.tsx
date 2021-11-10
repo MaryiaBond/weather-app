@@ -42,7 +42,7 @@ const Weather3Days: React.FC<IProps> = (props: IProps) => {
     // eslint-disable-next-line
   }, [props.currentCity]);
 
-  console.log(weather3Days);
+  //console.log(weather3Days);
 
   //console.log(props.currentCity);
 

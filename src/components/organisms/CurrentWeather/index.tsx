@@ -15,6 +15,7 @@ type MainDataType = {
 
 interface IDataType {
   main: MainDataType;
+  timezone: number;
 }
 
 interface IProps {
@@ -27,6 +28,7 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
   >({ temp: 0, humidity: 0 });
   const [currentTime, setCurrentTime] = useState("");
   const [notFound, setNotFound] = useState("");
+  const [offset, setoffset] = useState(10800);
 
   const getCurrentWeather = () => {
     setNotFound("");
@@ -35,29 +37,40 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
     )
       .then((res) => res.json())
       .then((data: IDataType) => {
-        if (data.main) setCurrentWeather(data.main);
-        else setNotFound("City not found!");
+        console.log(data);
+        if (data.main) {
+          setoffset(data.timezone);
+          setCurrentWeather(data.main);
+        } else setNotFound("City not found!");
       });
   };
 
-  const getCurrentTime = () => {
-    const days = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-    const now = new Date();
-    const month = new Date().toLocaleString("en", { month: "long" });
-    const date = now.getDate();
-    const day = days[now.getDay()];
-    const hour = new Date().toLocaleString("en", {
-      hour12: false,
-      hour: "2-digit",
-    });
-    const minute = new Date().toLocaleString("en", { minute: "2-digit" });
-    const time = `${month}, ${date}th, ${day}, ${hour}.${minute}`;
-    setCurrentTime(time);
+  //const getCurrentTime = () => {
+  //  const days = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+  //  const now = new Date();
+  //  const month = new Date().toLocaleString("en", { month: "long" });
+  //  const date = now.getDate();
+  //  const day = days[now.getDay()];
+  //  const hour = new Date().toLocaleString("en", {
+  //    hour12: false,
+  //    hour: "2-digit",
+  //  });
+  //  const minute = new Date().toLocaleString("en", { minute: "2-digit" });
+  //  const time = `${month}, ${date}th, ${day}, ${hour}.${minute}`;
+  //  setCurrentTime(time);
+  //};
+
+  const getCurrentTime = (offset: number) => {
+    const d = new Date();
+    const utc = d.getTime() + d.getTimezoneOffset() * 60000;
+    const nd = new Date(utc + 1000 * offset);
+    const result = nd.toLocaleString();
+    setCurrentTime(result);
   };
 
   useEffect(() => {
     getCurrentWeather();
-    getCurrentTime();
+    getCurrentTime(offset);
     // eslint-disable-next-line
   }, [props.currentCity]);
 
