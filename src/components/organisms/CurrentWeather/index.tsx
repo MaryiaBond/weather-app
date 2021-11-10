@@ -62,17 +62,23 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
 
   const getCurrentTime = (offset: number) => {
     const d = new Date();
+    console.log(d);
     const utc = d.getTime() + d.getTimezoneOffset() * 60000;
+    console.log(utc);
     const nd = new Date(utc + 1000 * offset);
-    const result = nd.toLocaleString();
-    setCurrentTime(result);
+    console.log(nd);
+    const result = nd.toLocaleString().slice(0, 17);
+    const days = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+    const day = days[nd.getDay()];
+    const time = result + ", " + day;
+    setCurrentTime(time);
   };
 
   useEffect(() => {
     getCurrentWeather();
     getCurrentTime(offset);
     // eslint-disable-next-line
-  }, [props.currentCity]);
+  }, [props.currentCity, offset]);
 
   //console.log(currentWeather);
 

@@ -24,7 +24,7 @@ const Header: React.FC<IChangeCity> = (props: IChangeCity) => {
       />
       <CitySearch
         changeCity={props.changeCity}
-        currentCity={props.currentCity}
+        currentCity={props.currentCity.toUpperCase()}
       />
     </section>
   );

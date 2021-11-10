@@ -1,3 +1,4 @@
+/* eslint-disable no-unreachable */
 import * as React from "react";
 import { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
@@ -12,11 +13,13 @@ type MainDataType = {
 interface IDataType {
   main: MainDataType;
   clouds: { all: number };
+  dt: number;
   dt_txt: string;
 }
 
 interface IDataList {
   list: IDataType[];
+  city: { timezone: number };
 }
 
 interface IProps {
@@ -25,6 +28,7 @@ interface IProps {
 
 const Weather3Days: React.FC<IProps> = (props: IProps) => {
   const [weather3Days, setWeather3Days] = useState<IDataList | undefined>();
+  //const [timezone, setTimezone] = useState(10800);
 
   const getDays3Weather = () => {
     fetch(
@@ -32,9 +36,46 @@ const Weather3Days: React.FC<IProps> = (props: IProps) => {
     )
       .then((res) => res.json())
       .then((data: IDataList) => {
-        //console.log(data.list[0]);
-        if (data.list) setWeather3Days(data);
+        if (data.list) {
+          console.log(data.list);
+          setWeather3Days(data);
+        }
       });
+  };
+
+  const getMomentTime = (dt: number, timezone: number, dt_txt: string) => {
+    console.log(+dt_txt.slice(10, 13) + timezone / 3600);
+    const nd = new Date((dt - 21600) * 1000 + 1000 * timezone);
+    const result = nd.toLocaleString().slice(0, 17);
+    const days = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+    const day = days[nd.getDay()];
+    const time = result + ", " + day;
+    return time;
+  };
+
+  const getStyle = (dt: number, tz: number) => {
+    switch (dt + tz / 3600) {
+      case 3:
+        return true;
+
+        break;
+      case 4:
+        return true;
+        break;
+      case 5:
+        return true;
+        break;
+      case 27:
+        return true;
+        break;
+      case 28:
+        return true;
+        break;
+      case 29:
+        return true;
+      default:
+        return false;
+    }
   };
 
   useEffect(() => {
@@ -54,13 +95,40 @@ const Weather3Days: React.FC<IProps> = (props: IProps) => {
             key={index}
             className={styles.partOfDay}
             style={
-              element.dt_txt.slice(11, 16) === "00:00"
-                ? { backgroundColor: "rgb(148, 109, 240)", color: "#fff" }
+              getStyle(
+                +element.dt_txt.slice(10, 13),
+                weather3Days.city.timezone
+              )
+                ? //+element.dt_txt.slice(10, 13) +
+                  //  weather3Days.city.timezone / 3600 ===
+                  //  3 ||
+                  //+element.dt_txt.slice(10, 13) +
+                  //  weather3Days.city.timezone / 3600 ===
+                  //  4 ||
+                  //+element.dt_txt.slice(10, 13) +
+                  //  weather3Days.city.timezone / 3600 ===
+                  //  5 ||
+                  //+element.dt_txt.slice(10, 13) +
+                  //  weather3Days.city.timezone / 3600 ===
+                  //  28 ||
+                  //+element.dt_txt.slice(10, 13) +
+                  //  weather3Days.city.timezone / 3600 ===
+                  //  29 ||
+                  //+element.dt_txt.slice(10, 13) +
+                  //  weather3Days.city.timezone / 3600 ===
+                  //  27
+                  { backgroundColor: "rgb(148, 109, 240)", color: "#fff" }
                 : { backgroundColor: "rgb(238, 207, 236)" }
             }
           >
-            <span className={styles.moment}>{element.dt_txt.slice(5, 16)}</span>
-            <span>{element.main.temp}&#8451;</span>
+            <span className={styles.moment}>
+              {getMomentTime(
+                element.dt,
+                weather3Days.city.timezone,
+                element.dt_txt
+              )}
+            </span>
+            <span className={styles.moment}>{element.main.temp}&#8451;</span>
           </li>
         ))}
       </ul>
@@ -69,5 +137,10 @@ const Weather3Days: React.FC<IProps> = (props: IProps) => {
 }; // onClick={(event: React.MouseEvent<HTMLElement>) => { 	getCurrentWeather(); }}
 // , useContext  const currentCity: any = useContext(Context);
 // {Math.floor(currentWeather.temp * 10) / 10} &#8451;   {currentWeather.humidity}%
+// style={(+element.dt_txt.slice(11, 15) + weather3Days.city.timezone / 3600 === 24)
+//	? { backgroundColor: "rgb(148, 109, 240)", color: "#fff" }
+//	: { backgroundColor: "rgb(238, 207, 236)" }
+//}
+//  {getMomentTime(element.dt, weather3Days?.city.timezone)}
 
 export default Weather3Days;

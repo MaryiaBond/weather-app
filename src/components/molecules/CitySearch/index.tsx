@@ -31,7 +31,7 @@ const CitySearch: React.FC<IProps> = (props: IProps) => {
         />
       </div>
       <span className={styles.selectedCity}>
-        Weather in {props.currentCity}
+        Weather in <span className={styles.cityName}>{props.currentCity}</span>
       </span>
     </div>
   );
