@@ -59,16 +59,16 @@ const PresetСities: React.FC<IChangeCity> = (props: IChangeCity) => {
   return (
     <div className={styles.preset}>
       {cities.map((element) => (
-        <Link to={`/${props.numberOfDays}/${element.city}`}>
-          <City
-            key={element.city}
-            id={element.id}
-            city={element.city}
-            isChecked={element.isChecked}
-            markCity={markCity}
-            changeCity={props.changeCity}
-          />
-        </Link>
+        // <Link to={`/${props.numberOfDays}/${element.city}`}>
+        <City
+          key={element.city}
+          id={element.id}
+          city={element.city}
+          isChecked={element.isChecked}
+          markCity={markCity}
+          changeCity={props.changeCity}
+        />
+        // </Link>
       ))}
     </div>
   );
