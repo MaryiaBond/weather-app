@@ -16,10 +16,12 @@ type MainDataType = {
 interface IDataType {
   main: MainDataType;
   timezone: number;
+  coord: { lat: number; lon: number };
 }
 
 interface IProps {
   currentCity: string;
+  changeCoordinates(lat: number, lon: number): void;
 }
 
 const CurrentWeather: React.FC<IProps> = (props: IProps) => {
@@ -29,6 +31,8 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
   const [currentTime, setCurrentTime] = useState("");
   const [notFound, setNotFound] = useState("");
   const [offset, setoffset] = useState(10800);
+  const [lat, setLat] = useState(0);
+  const [lon, setLon] = useState(0);
 
   const getCurrentWeather = () => {
     setNotFound("");
@@ -37,36 +41,23 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
     )
       .then((res) => res.json())
       .then((data: IDataType) => {
-        console.log(data);
+        //console.log(data);
         if (data.main) {
+          setLat(data.coord.lat);
+          setLon(data.coord.lon);
           setoffset(data.timezone);
           setCurrentWeather(data.main);
         } else setNotFound("City not found!");
       });
   };
 
-  //const getCurrentTime = () => {
-  //  const days = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
-  //  const now = new Date();
-  //  const month = new Date().toLocaleString("en", { month: "long" });
-  //  const date = now.getDate();
-  //  const day = days[now.getDay()];
-  //  const hour = new Date().toLocaleString("en", {
-  //    hour12: false,
-  //    hour: "2-digit",
-  //  });
-  //  const minute = new Date().toLocaleString("en", { minute: "2-digit" });
-  //  const time = `${month}, ${date}th, ${day}, ${hour}.${minute}`;
-  //  setCurrentTime(time);
-  //};
-
   const getCurrentTime = (offset: number) => {
     const d = new Date();
-    console.log(d);
+    //console.log(d);
     const utc = d.getTime() + d.getTimezoneOffset() * 60000;
-    console.log(utc);
+    //console.log(utc);
     const nd = new Date(utc + 1000 * offset);
-    console.log(nd);
+    //console.log(nd);
     const result = nd.toLocaleString().slice(0, 17);
     const days = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
     const day = days[nd.getDay()];
@@ -77,6 +68,7 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
   useEffect(() => {
     getCurrentWeather();
     getCurrentTime(offset);
+    props.changeCoordinates(lat, lon);
     // eslint-disable-next-line
   }, [props.currentCity, offset]);
 

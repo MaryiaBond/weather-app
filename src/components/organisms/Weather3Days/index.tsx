@@ -37,14 +37,14 @@ const Weather3Days: React.FC<IProps> = (props: IProps) => {
       .then((res) => res.json())
       .then((data: IDataList) => {
         if (data.list) {
-          console.log(data.list);
+          //console.log(data.list);
           setWeather3Days(data);
         }
       });
   };
 
   const getMomentTime = (dt: number, timezone: number, dt_txt: string) => {
-    console.log(+dt_txt.slice(10, 13) + timezone / 3600);
+    //console.log(+dt_txt.slice(10, 13) + timezone / 3600);
     const nd = new Date((dt - 21600) * 1000 + 1000 * timezone);
     const result = nd.toLocaleString().slice(0, 17);
     const days = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
@@ -99,25 +99,7 @@ const Weather3Days: React.FC<IProps> = (props: IProps) => {
                 +element.dt_txt.slice(10, 13),
                 weather3Days.city.timezone
               )
-                ? //+element.dt_txt.slice(10, 13) +
-                  //  weather3Days.city.timezone / 3600 ===
-                  //  3 ||
-                  //+element.dt_txt.slice(10, 13) +
-                  //  weather3Days.city.timezone / 3600 ===
-                  //  4 ||
-                  //+element.dt_txt.slice(10, 13) +
-                  //  weather3Days.city.timezone / 3600 ===
-                  //  5 ||
-                  //+element.dt_txt.slice(10, 13) +
-                  //  weather3Days.city.timezone / 3600 ===
-                  //  28 ||
-                  //+element.dt_txt.slice(10, 13) +
-                  //  weather3Days.city.timezone / 3600 ===
-                  //  29 ||
-                  //+element.dt_txt.slice(10, 13) +
-                  //  weather3Days.city.timezone / 3600 ===
-                  //  27
-                  { backgroundColor: "rgb(148, 109, 240)", color: "#fff" }
+                ? { backgroundColor: "rgb(148, 109, 240)", color: "#fff" }
                 : { backgroundColor: "rgb(238, 207, 236)" }
             }
           >

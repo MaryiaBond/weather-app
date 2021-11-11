@@ -1,5 +1,6 @@
 import * as React from "react";
 import styles from "./styles.module.scss";
+import { NavLink } from "react-router-dom";
 import Title from "../../atoms/Title";
 import PresetСities from "../../molecules/PresetCities";
 import CitySearch from "../../molecules/CitySearch";
@@ -26,6 +27,9 @@ const Header: React.FC<IChangeCity> = (props: IChangeCity) => {
         changeCity={props.changeCity}
         currentCity={props.currentCity.toUpperCase()}
       />
+      <NavLink to="/days8">
+        <button>To 8 days</button>
+      </NavLink>
     </section>
   );
 };
