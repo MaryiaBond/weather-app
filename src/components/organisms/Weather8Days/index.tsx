@@ -14,12 +14,16 @@ type Days8DataType = {
 interface IDataType {
   daily: Days8DataType[];
   timezone_offset: number;
+  main: any;
+  coord: any;
 }
 
 interface IProps {
   lat: number;
   lon: number;
   currentCity: string;
+  match: any;
+  setCoord: any;
 }
 
 const Weather8Days: React.FC<IProps> = (props: IProps) => {
@@ -30,13 +34,23 @@ const Weather8Days: React.FC<IProps> = (props: IProps) => {
 
   //console.log(props);
 
-  const getWeather8Days = () => {
-    fetch(
+  const getWeather8Days = async () => {
+    await fetch(
+      `http://api.openweathermap.org/data/2.5/weather?q=${props.match.params.city}&type=like&units=metric&appid=2767f783403ac9fedd6aa003a5194148`
+    )
+      .then((res) => res.json())
+      .then((data: IDataType) => {
+        console.log(data);
+        if (data.main as any) {
+          props.setCoord([data?.coord.lat, data?.coord.lon]);
+        }
+      });
+    await fetch(
       `https://api.openweathermap.org/data/2.5/onecall?lat=${props.lat}&lon=${props.lon}&exclude=current,minutely,hourly,alerts&units=metric&appid=2767f783403ac9fedd6aa003a5194148`
     )
       .then((res) => res.json())
       .then((data: IDataType) => {
-        //console.log(data);
+        console.log(data);
         if (data) {
           setWeather8Days(data);
         }
@@ -62,7 +76,7 @@ const Weather8Days: React.FC<IProps> = (props: IProps) => {
 
   //console.log(currentWeather);
 
-  //console.log(props.currentCity);
+  console.log(props.currentCity);
 
   return (
     <div className={styles.days8}>

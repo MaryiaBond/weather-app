@@ -16,19 +16,24 @@ interface IChangeCity {
 }
 
 const Header: React.FC<IChangeCity> = (props: IChangeCity) => {
+  const [numberOfDays, setNumberOfDays] = React.useState("days3");
   return (
     <section className={styles.header}>
       <Title />
       <PresetСities
         currentCity={props.currentCity}
         changeCity={props.changeCity}
+        numberOfDays={numberOfDays}
       />
       <CitySearch
         changeCity={props.changeCity}
         currentCity={props.currentCity.toUpperCase()}
       />
-      <NavLink to="/days8">
+      <NavLink to={`/${numberOfDays}`} onClick={() => setNumberOfDays("days8")}>
         <button>To 8 days</button>
+      </NavLink>
+      <NavLink to={`/${numberOfDays}`} onClick={() => setNumberOfDays("days3")}>
+        <button>To 3 days</button>
       </NavLink>
     </section>
   );

@@ -2,6 +2,7 @@ import * as React from "react";
 import styles from "./styles.module.scss";
 import { useState, useEffect } from "react";
 import City from "../../atoms/City";
+import { Link } from "react-router-dom";
 
 interface ICity {
   city: string;
@@ -12,6 +13,7 @@ interface ICity {
 interface IChangeCity {
   changeCity(event: React.MouseEvent<HTMLElement>, city: string): void;
   currentCity: string;
+  numberOfDays: string;
 }
 
 const PresetСities: React.FC<IChangeCity> = (props: IChangeCity) => {
@@ -57,14 +59,16 @@ const PresetСities: React.FC<IChangeCity> = (props: IChangeCity) => {
   return (
     <div className={styles.preset}>
       {cities.map((element) => (
-        <City
-          key={element.city}
-          id={element.id}
-          city={element.city}
-          isChecked={element.isChecked}
-          markCity={markCity}
-          changeCity={props.changeCity}
-        />
+        <Link to={`/${props.numberOfDays}/${element.city}`}>
+          <City
+            key={element.city}
+            id={element.id}
+            city={element.city}
+            isChecked={element.isChecked}
+            markCity={markCity}
+            changeCity={props.changeCity}
+          />
+        </Link>
       ))}
     </div>
   );
