@@ -15,6 +15,7 @@ interface IChangeCity {
   currentCity: string;
   propsStatus: string;
   newDaysAmount(arg: string): void;
+  daysAmount: string;
 }
 
 const Header: React.FC<IChangeCity> = (props: IChangeCity) => {
@@ -25,10 +26,12 @@ const Header: React.FC<IChangeCity> = (props: IChangeCity) => {
       <PresetСities
         currentCity={props.currentCity}
         changeCity={props.changeCity}
+        daysAmount={props.daysAmount}
       />
       <CitySearch
         changeCity={props.changeCity}
         currentCity={props.currentCity.toUpperCase()}
+        daysAmount={props.daysAmount}
       />
       {/*<NavLink to={"/days8/" + props.currentCity}>*/}
       <button

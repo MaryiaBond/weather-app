@@ -32,7 +32,6 @@ interface IProps {
 const Weather3Days: React.FC<IProps> = (props: IProps) => {
   const [weather3Days, setWeather3Days] = useState<IDataList | undefined>();
   //const [timezone, setTimezone] = useState(10800);
-
   console.log(props.match.params.city);
   console.log(props.propsStatus);
   console.log(props.currentCity);

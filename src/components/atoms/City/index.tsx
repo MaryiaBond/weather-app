@@ -9,11 +9,15 @@ interface IProps {
   isChecked: boolean;
   markCity(event: React.MouseEvent<HTMLInputElement>, id: string): void;
   changeCity(event: React.MouseEvent<HTMLElement>, city: string): void;
+  daysAmount: string;
 }
 
 const City: React.FC<IProps> = (props: IProps) => {
   return (
-    <NavLink to={"/days3/" + props.currentCity} className={styles.cityLabel}>
+    <NavLink
+      to={"/" + props.daysAmount + "/" + props.currentCity}
+      className={styles.cityLabel}
+    >
       <div
         id={props.id}
         className={styles.cityInput}

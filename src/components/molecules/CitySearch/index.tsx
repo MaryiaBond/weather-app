@@ -2,22 +2,15 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
 import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router-dom";
 
 interface IProps {
   currentCity: string;
   changeCity(event: React.MouseEvent<HTMLElement>, city: string): void;
+  daysAmount: string;
 }
 
 const CitySearch: React.FC<IProps> = (props: IProps) => {
   const [sityName, setCityName] = useState("");
-
-  let history = useHistory();
-
-  useEffect(() => {
-    history.push({ pathname: "/days3/" + props.currentCity });
-    // eslint-disable-next-line
-  }, [props.currentCity]);
 
   console.log(props);
 

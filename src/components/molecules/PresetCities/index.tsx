@@ -12,6 +12,7 @@ interface ICity {
 interface IChangeCity {
   changeCity(event: React.MouseEvent<HTMLElement>, city: string): void;
   currentCity: string;
+  daysAmount: string;
 }
 
 const PresetСities: React.FC<IChangeCity> = (props: IChangeCity) => {
@@ -65,6 +66,7 @@ const PresetСities: React.FC<IChangeCity> = (props: IChangeCity) => {
           markCity={markCity}
           changeCity={props.changeCity}
           currentCity={props.currentCity}
+          daysAmount={props.daysAmount}
         />
       ))}
     </div>

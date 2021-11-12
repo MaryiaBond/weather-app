@@ -27,7 +27,6 @@ const Weather8Days: React.FC<IProps> = (props: IProps) => {
   const [weather8Days, setWeather8Days] = useState<IDataType | undefined>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   //const [currentTime, setCurrentTime] = useState("");
-
   const getWeather8Days = (city: string) => {
     fetch(
       `http://api.openweathermap.org/data/2.5/weather?q=${city}&type=like&units=metric&appid=2767f783403ac9fedd6aa003a5194148`

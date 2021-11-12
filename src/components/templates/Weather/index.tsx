@@ -7,6 +7,7 @@ import CurrentWeather from "../../organisms/CurrentWeather";
 import Weather3Days from "../../organisms/Weather3Days";
 import Weather8Days from "../../organisms/Weather8Days";
 import { useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 //import { Context } from "../../../context";
 
 //interface IChangeCity {
@@ -17,7 +18,7 @@ function Weather() {
   const location = useLocation();
   const [daysAmount, setDaysAmount] = useState("days3");
   const [currentCity, setcurrentCity] = useState(
-    location.pathname.replace(`/${daysAmount}/`, "")
+    location.pathname !== "/" ? location.pathname.replace(/.+\//g, "") : "Minsk"
   );
   const [propsStatus, setpropsStatus] = useState("");
   //const [coord, setCoord] = useState([0, 0]);
@@ -44,7 +45,16 @@ function Weather() {
   //  setCoord([lat, lon]);
   //  //console.log(currentCity);
   //};
+  let history = useHistory();
+  useEffect(() => {
+    if (currentCity) {
+      history.push({
+        pathname: "/" + daysAmount + "/" + currentCity,
+      });
+    }
 
+    // eslint-disable-next-line
+  }, [currentCity, daysAmount]);
   return (
     <main className={styles.weather}>
       <Header
@@ -52,15 +62,16 @@ function Weather() {
         currentCity={currentCity}
         propsStatus={propsStatus}
         newDaysAmount={newDaysAmount}
+        daysAmount={daysAmount}
       />
 
       <CurrentWeather currentCity={currentCity} propsStatus={propsStatus} />
 
       <Switch>
-        <Route exact path="/">
-          <Redirect to={`/${daysAmount}/${currentCity}`} />
-        </Route>
-        <Route exact path={`/${daysAmount}/:city`}>
+        {/* <Route exact path="/">
+          <Redirect to={`/days3/Minsk`} />
+        </Route> */}
+        <Route exact path={`/days3/:city`}>
           {({ match }) => (
             <Weather3Days
               currentCity={currentCity}
@@ -69,7 +80,7 @@ function Weather() {
             />
           )}
         </Route>
-        <Route exact path={`/${daysAmount}/:city`}>
+        <Route exact path={`/days8/:city`}>
           {({ match }) => (
             <Weather8Days
               currentCity={currentCity}
