@@ -17,23 +17,27 @@ interface IDataType {
 }
 
 interface IProps {
-  lat: number;
-  lon: number;
   currentCity: string;
+  propsStatus: string;
+  match: any;
 }
 
 const Weather8Days: React.FC<IProps> = (props: IProps) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [weather8Days, setWeather8Days] = useState<IDataType | undefined>();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [currentTime, setCurrentTime] = useState("");
+  //const [currentTime, setCurrentTime] = useState("");
 
-  //console.log(props);
-
-  const getWeather8Days = () => {
+  const getWeather8Days = (city: string) => {
     fetch(
-      `https://api.openweathermap.org/data/2.5/onecall?lat=${props.lat}&lon=${props.lon}&exclude=current,minutely,hourly,alerts&units=metric&appid=2767f783403ac9fedd6aa003a5194148`
+      `http://api.openweathermap.org/data/2.5/weather?q=${city}&type=like&units=metric&appid=2767f783403ac9fedd6aa003a5194148`
     )
+      .then((res) => res.json())
+      .then((firstData) =>
+        fetch(
+          `https://api.openweathermap.org/data/2.5/onecall?lat=${firstData.coord.lat}&lon=${firstData.coord.lon}&exclude=current,minutely,hourly,alerts&units=metric&appid=2767f783403ac9fedd6aa003a5194148`
+        )
+      )
       .then((res) => res.json())
       .then((data: IDataType) => {
         //console.log(data);
@@ -55,14 +59,16 @@ const Weather8Days: React.FC<IProps> = (props: IProps) => {
   };
 
   useEffect(() => {
-    getWeather8Days();
+    if (props.match.params.city && props.propsStatus === "")
+      getWeather8Days(props.match.params.city);
+    else getWeather8Days(props.currentCity);
     //getCurrentTime(offset);
     // eslint-disable-next-line
-  }, [props.lon, props.lat]);
+  }, [props.currentCity]);
 
   //console.log(currentWeather);
 
-  //console.log(props.currentCity);
+  //console.log(props.match.params.city);
 
   return (
     <div className={styles.days8}>

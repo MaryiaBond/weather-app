@@ -4,15 +4,16 @@
   display: flex;
   margin: 0 auto 1.5rem auto;
   .search {
-    width: 12rem;
+    width: 17rem;
     border: 1px dashed rgb(133, 130, 130);
     box-sizing: border-box;
     border-radius: 0.75rem;
     margin-right: 2rem;
+    position: relative;
     .searchInput {
       background: transparent;
       border: none;
-      padding: 0.25rem 0.5rem;
+      padding: 0.25rem;
       font-size: 1.25rem;
       line-height: 1.75rem;
       display: flex;
@@ -21,6 +22,19 @@
       &::placeholder {
         text-align: left;
         font-size: 1rem;
+      }
+    }
+    .searchLink {
+      position: absolute;
+      left: 14rem;
+      top: 0;
+      .searchButton {
+        width: 2.5rem;
+        text-align: center;
+        background-color: rgb(53, 224, 139);
+        border: none;
+        padding: 0.25 0.5rem;
+        border-radius: 0.5rem;
       }
     }
   }

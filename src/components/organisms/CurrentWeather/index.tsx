@@ -21,7 +21,8 @@ interface IDataType {
 
 interface IProps {
   currentCity: string;
-  changeCoordinates(lat: number, lon: number): void;
+  propsStatus: string;
+  match: any;
 }
 
 const CurrentWeather: React.FC<IProps> = (props: IProps) => {
@@ -31,8 +32,8 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
   const [currentTime, setCurrentTime] = useState("");
   const [notFound, setNotFound] = useState("");
   const [offset, setoffset] = useState(10800);
-  const [lat, setLat] = useState(0);
-  const [lon, setLon] = useState(0);
+  //const [lat, setLat] = useState(0);
+  //const [lon, setLon] = useState(0);
 
   const getCurrentWeather = () => {
     setNotFound("");
@@ -43,8 +44,6 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
       .then((data: IDataType) => {
         //console.log(data);
         if (data.main) {
-          setLat(data.coord.lat);
-          setLon(data.coord.lon);
           setoffset(data.timezone);
           setCurrentWeather(data.main);
         } else setNotFound("City not found!");
@@ -68,7 +67,6 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
   useEffect(() => {
     getCurrentWeather();
     getCurrentTime(offset);
-    props.changeCoordinates(lat, lon);
     // eslint-disable-next-line
   }, [props.currentCity, offset]);
 
@@ -80,7 +78,6 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
     <div className={styles.current}>
       <div className={styles.notFound}>{notFound}</div>
       <span className={styles.currentTime}></span>
-      <button>GET</button>
       <div>{currentTime}</div>
       <div>{Math.floor(currentWeather.temp * 10) / 10} &#8451;</div>
       <div>RH {currentWeather.humidity}%</div>

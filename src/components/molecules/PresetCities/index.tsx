@@ -21,7 +21,7 @@ const PresetСities: React.FC<IChangeCity> = (props: IChangeCity) => {
     { city: "Bratislava", id: "Bratislava", isChecked: false },
   ]);
 
-  const markCity = (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
+  const markCity = (event: React.MouseEvent<HTMLInputElement>, id: string) => {
     const arr: ICity[] = [...cities];
     // eslint-disable-next-line array-callback-return
     arr.map((element) => {
@@ -64,6 +64,7 @@ const PresetСities: React.FC<IChangeCity> = (props: IChangeCity) => {
           isChecked={element.isChecked}
           markCity={markCity}
           changeCity={props.changeCity}
+          currentCity={props.currentCity}
         />
       ))}
     </div>

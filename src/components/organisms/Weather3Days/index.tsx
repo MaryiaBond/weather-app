@@ -24,15 +24,17 @@ interface IDataList {
 
 interface IProps {
   currentCity: string;
+  propsStatus: string;
+  match: any;
 }
 
 const Weather3Days: React.FC<IProps> = (props: IProps) => {
   const [weather3Days, setWeather3Days] = useState<IDataList | undefined>();
   //const [timezone, setTimezone] = useState(10800);
 
-  const getDays3Weather = () => {
+  const getDays3Weather = (city: string) => {
     fetch(
-      `http://api.openweathermap.org/data/2.5/forecast?q=${props.currentCity}&cnt=24&type=like&units=metric&appid=2767f783403ac9fedd6aa003a5194148`
+      `http://api.openweathermap.org/data/2.5/forecast?q=${city}&cnt=24&type=like&units=metric&appid=2767f783403ac9fedd6aa003a5194148`
     )
       .then((res) => res.json())
       .then((data: IDataList) => {
@@ -79,7 +81,9 @@ const Weather3Days: React.FC<IProps> = (props: IProps) => {
   };
 
   useEffect(() => {
-    getDays3Weather();
+    if (props.match.params.city && props.propsStatus === "")
+      getDays3Weather(props.match.params.city);
+    else getDays3Weather(props.currentCity);
     // eslint-disable-next-line
   }, [props.currentCity]);
 

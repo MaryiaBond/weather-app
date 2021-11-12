@@ -1,11 +1,14 @@
 import React from "react";
 import Weather from "./components/templates/Weather";
+import { BrowserRouter } from "react-router-dom";
 
 function App() {
   return (
-    <div className="App">
-      <Weather />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Weather />
+      </div>
+    </BrowserRouter>
   );
 }
 

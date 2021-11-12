@@ -1,7 +1,7 @@
 @import "../../../assets/styles/styles.scss";
 
 .current {
-  background-color: rgb(228, 238, 207);
+  background-color: $searchBgi;;
   display: flex;
   flex-direction: column;
   align-items: center;

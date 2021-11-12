@@ -13,42 +13,87 @@ body {
   margin: 0 auto 0 auto;
 }
 
-.days8 {
-  padding: 1rem 0;
-  background-color: #e4eecf;
+.searchWrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  margin: 0 auto 1.5rem auto;
+}
+
+.searchWrapper .search {
+  width: 17rem;
+  border: 1px dashed #858282;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 0.75rem;
+  margin-right: 2rem;
+  position: relative;
+}
+
+.searchWrapper .search .searchInput {
+  background: transparent;
+  border: none;
+  padding: 0.25rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  max-height: 20rem;
-  overflow-x: hidden;
+  outline: none;
 }
 
-.days8 .day {
+.searchWrapper .search .searchInput::-webkit-input-placeholder {
+  text-align: left;
+  font-size: 1rem;
+}
+
+.searchWrapper .search .searchInput:-ms-input-placeholder {
+  text-align: left;
+  font-size: 1rem;
+}
+
+.searchWrapper .search .searchInput::-ms-input-placeholder {
+  text-align: left;
+  font-size: 1rem;
+}
+
+.searchWrapper .search .searchInput::placeholder {
+  text-align: left;
+  font-size: 1rem;
+}
+
+.searchWrapper .search .searchLink {
+  position: absolute;
+  left: 14rem;
+  top: 0;
+}
+
+.searchWrapper .search .searchLink .searchButton {
+  width: 2.5rem;
+  text-align: center;
+  background-color: #35e08b;
+  border: none;
+  padding: 0.25 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.searchWrapper .selectedCity {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  padding: 0.25rem 0;
-  border-radius: 0.5rem;
-}
-
-.days8 .day .moment {
-  display: block;
-  margin-right: 1rem;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 0.25rem;
-  border-radius: 0.5rem;
-  border: 1px solid #fff;
+  width: auto;
+  font-size: 1.5rem;
 }
 
-.days8 .toCurrent {
-  margin-top: 1rem;
+.searchWrapper .selectedCity .cityName {
+  display: block;
+  text-transform: capitalize;
+  padding-left: 0.5rem;
 }

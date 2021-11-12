@@ -13,6 +13,8 @@ interface IChangeCity {
     city: string
   ): void;
   currentCity: string;
+  propsStatus: string;
+  match: any;
 }
 
 const Header: React.FC<IChangeCity> = (props: IChangeCity) => {
@@ -27,8 +29,11 @@ const Header: React.FC<IChangeCity> = (props: IChangeCity) => {
         changeCity={props.changeCity}
         currentCity={props.currentCity.toUpperCase()}
       />
-      <NavLink to="/days8">
+      <NavLink to={"/days8/" + props.currentCity}>
         <button>To 8 days</button>
+      </NavLink>
+      <NavLink to={"/days3/" + props.currentCity}>
+        <button>To 3 days</button>
       </NavLink>
     </section>
   );

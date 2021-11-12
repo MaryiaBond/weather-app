@@ -2,6 +2,8 @@
 
 .cityLabel {
   display: flex;
+  text-decoration: none;
+  color: #000;
   .cityName {
     @include sityRadio;
   }
