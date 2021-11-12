@@ -1,0 +1,17 @@
+@import "../../../assets/styles/styles.scss";
+
+.cityLabel {
+  display: flex;
+  text-decoration: none;
+  color: #000;
+  .cityName {
+    @include sityRadio;
+  }
+  .cityInput {
+    appearance: none;
+  }
+  .cityInput:checked ~ .cityName {
+    @include sityRadio;
+    border: 0.0625rem solid rgb(139, 21, 21);
+  }
+}

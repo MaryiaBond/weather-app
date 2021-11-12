@@ -1,0 +1,18 @@
+@import "../../../assets/styles/styles.scss";
+
+.current {
+  background-color: $searchBgi;;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .notFound {
+    color: crimson;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    font-size: 2rem;
+    font-weight: bold;
+    position: absolute;
+    left: 50vw;
+    top: 7.5rem;
+  }
+}

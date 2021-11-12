@@ -1,0 +1,10 @@
+@mixin sityRadio {
+  display: block;
+  text-align: center;
+  background-color: rgb(248, 250, 228);
+  border-radius: 0.75rem;
+  padding: 0.3rem 0.625rem;
+  border: 0.0625rem solid rgb(248, 250, 228);
+  box-sizing: border-box;
+  width: 6rem;
+}
