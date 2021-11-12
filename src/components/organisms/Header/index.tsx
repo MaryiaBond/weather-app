@@ -14,10 +14,11 @@ interface IChangeCity {
   ): void;
   currentCity: string;
   propsStatus: string;
-  match: any;
+  newDaysAmount(arg: string): void;
 }
 
 const Header: React.FC<IChangeCity> = (props: IChangeCity) => {
+  console.log(props);
   return (
     <section className={styles.header}>
       <Title />
@@ -30,10 +31,22 @@ const Header: React.FC<IChangeCity> = (props: IChangeCity) => {
         currentCity={props.currentCity.toUpperCase()}
       />
       <NavLink to={"/days8/" + props.currentCity}>
-        <button>To 8 days</button>
+        <button
+          onClick={(event: React.MouseEvent<HTMLElement>) => {
+            props.newDaysAmount("days8");
+          }}
+        >
+          To 8 days
+        </button>
       </NavLink>
       <NavLink to={"/days3/" + props.currentCity}>
-        <button>To 3 days</button>
+        <button
+          onClick={(event: React.MouseEvent<HTMLElement>) => {
+            props.newDaysAmount("days3");
+          }}
+        >
+          To 3 days
+        </button>
       </NavLink>
     </section>
   );

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import styles from "./styles.module.scss";
+import { useLocation } from "react-router-dom";
 
 type MainDataType = {
   feels_like: number;
@@ -22,7 +23,6 @@ interface IDataType {
 interface IProps {
   currentCity: string;
   propsStatus: string;
-  match: any;
 }
 
 const CurrentWeather: React.FC<IProps> = (props: IProps) => {
@@ -70,6 +70,10 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
     // eslint-disable-next-line
   }, [props.currentCity, offset]);
 
+  let slug = useLocation<any>();
+
+  //console.log(slug.pathname.slice(7));
+
   //console.log(currentWeather);
 
   //console.log(props.currentCity);
@@ -77,6 +81,7 @@ const CurrentWeather: React.FC<IProps> = (props: IProps) => {
   return (
     <div className={styles.current}>
       <div className={styles.notFound}>{notFound}</div>
+      <span className={styles.currentTime}>{slug.pathname.slice(7)}</span>
       <span className={styles.currentTime}></span>
       <div>{currentTime}</div>
       <div>{Math.floor(currentWeather.temp * 10) / 10} &#8451;</div>
