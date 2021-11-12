@@ -30,24 +30,24 @@ const Header: React.FC<IChangeCity> = (props: IChangeCity) => {
         changeCity={props.changeCity}
         currentCity={props.currentCity.toUpperCase()}
       />
-      <NavLink to={"/days8/" + props.currentCity}>
-        <button
-          onClick={(event: React.MouseEvent<HTMLElement>) => {
-            props.newDaysAmount("days8");
-          }}
-        >
-          To 8 days
-        </button>
-      </NavLink>
-      <NavLink to={"/days3/" + props.currentCity}>
-        <button
-          onClick={(event: React.MouseEvent<HTMLElement>) => {
-            props.newDaysAmount("days3");
-          }}
-        >
-          To 3 days
-        </button>
-      </NavLink>
+      {/*<NavLink to={"/days8/" + props.currentCity}>*/}
+      <button
+        onClick={(event: React.MouseEvent<HTMLElement>) => {
+          props.newDaysAmount("days8");
+        }}
+      >
+        To 8 days
+      </button>
+      {/*</NavLink>*/}
+      {/*<NavLink to={"/days3/" + props.currentCity}>*/}
+      <button
+        onClick={(event: React.MouseEvent<HTMLElement>) => {
+          props.newDaysAmount("days3");
+        }}
+      >
+        To 3 days
+      </button>
+      {/*</NavLink>*/}
     </section>
   );
 };

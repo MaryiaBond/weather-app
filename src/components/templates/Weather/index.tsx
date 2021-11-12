@@ -60,7 +60,7 @@ function Weather() {
         <Route exact path="/">
           <Redirect to={`/${daysAmount}/${currentCity}`} />
         </Route>
-        <Route exact path={`/days3/:city`}>
+        <Route exact path={`/${daysAmount}/:city`}>
           {({ match }) => (
             <Weather3Days
               currentCity={currentCity}
@@ -69,7 +69,7 @@ function Weather() {
             />
           )}
         </Route>
-        <Route exact path={`/days8/:city`}>
+        <Route exact path={`/${daysAmount}/:city`}>
           {({ match }) => (
             <Weather8Days
               currentCity={currentCity}
